@@ -24,6 +24,8 @@ public class Test_ListImplementations {
 			runTestsFor(listClassName);
 			System.out.println("==================== done");
 		}
+		
+		
 	}
 
 	/**
@@ -78,6 +80,7 @@ public class Test_ListImplementations {
 
 	/**
 	 * Runs all tests on this list.  Note, may have to create new lists 
+	 * 
 	 * to be sure that we start with a new empty list instance.  
 	 * Otherwise, errors from one test may affect the next test.
 	 * 
@@ -95,19 +98,53 @@ public class Test_ListImplementations {
 		}
 
 		// TODO: name and write additional tests to run on each list.
-		test01_test_name_here(className,list);
-
-
+//		test01_List_Constructor(className, list);
+		test01_List_Add_OneItem(className,list);
+		
 	}
+	
+	
 
 	/** 
 	 * A sample test method.
 	 * @param list
 	 */
-	private static void test01_test_name_here(String className, ListADT<String> list) {
-		// TODO Auto-generated method stub
-
+	private static void test01_List_Add_OneItem(String className, ListADT<String> list) {
+		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		
+		try{
+			list.add("1");
+			
+			int expected = 1;
+			int actual = list.size();
+			
+			if (actual != expected){
+				failMsg(name+" for "+ta_name,""+expected,""+actual);
+			}
+			
+			String getItem = list.get(0);
+			String expItem = "1";
+			
+			if(getItem != expItem){
+				failMsg(name+" for "+ta_name, ""+expItem, ""+getItem);
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println("FAILED	" + e);
+			
+		}
+	
+		
+		
 	}
+	
+	 private static void failMsg(String msg, String expected, String actual) {
+	        System.out.println("FAILED " + msg);
+	        System.out.println("    expected: " + expected);
+	        System.out.println("      actual: " + actual);
+	    }
 
 
 }
