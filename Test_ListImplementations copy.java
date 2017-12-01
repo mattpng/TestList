@@ -167,5 +167,100 @@ public class Test_ListImplementations {
 				failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
 			}
 		}
+	
+	// Note from Hongyi: for test 03-06, I did not check the size of the list because I think the size may better to be tested
+	// separately. 
+	// Also test06 will cause an infinite loop for Saipan.
+	private static void test03_add_At_Positive_Index_Out_Of_Bound(String className, ListADT<String> list) {
+		list = constructListOfString(className);
+		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		
+		try {
+			list.add(1,"a");
+			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+		}
+		
+		catch (IndexOutOfBoundsException e) {
+			System.out.println("test passed");
+		}
+		
+		catch (Exception e) {
+			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+		}
+	}
+	
+	private static void test04_add_A_Null_Item_At_A_Pos(String className, ListADT<String> list) {
+		list = constructListOfString(className);
+		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		
+		try {
+			String item = null;
+			list.add(0,item);
+			failMsg(name+" for "+ta_name,"IllegalArgumentException","Not throwing an exception");
+		}
+		
+		catch (IllegalArgumentException e) {
+			System.out.println("test passed");
+		}
+		
+		catch (Exception e) {
+			failMsg(name+" for "+ta_name,"IllegalArgumentException", ""+e);
+		}
+	}
+	
+	private static void test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
+		list = constructListOfString(className);
+		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		
+		String expItem = "1";
+		try {
+			list.add(0,"1");
+			String getItem = list.get(0);
+			
+			if (!getItem.equals(expItem)) {
+				failMsg(name+" for "+ta_name,expItem, ""+getItem);
+			}
+			
+			else {
+				System.out.println("test passed");
+			}
+		}
+		
+		catch (Exception e) {
+			failMsg(name+" for "+ta_name,expItem, ""+e);
+		}
+	}
+	
+	private static void test06_add_Items_At_Front_Rear_And_In_Between(String className, ListADT<String> list) {
+		// It seems that this method will cause an infinite loop for Sapan.
+		// So we will manually break out of that.
+		list = constructListOfString(className);
+		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		
+		String expItem = "2314";
+		try {
+			list.add(0,"1");
+			list.add(0,"2");
+			list.add(1,"3");
+			list.add(3,"4");
+			String getItem = "" + list.get(0) + list.get(1) + list.get(2) + list.get(3);
+			
+			if (!getItem.equals(expItem)) {
+				failMsg(name+" for "+ta_name,expItem, ""+getItem);
+			}
+			
+			else {
+				System.out.println("test passed");
+			}
+		}
+		
+		catch (Exception e) {
+			failMsg(name+" for "+ta_name,expItem, ""+e);
+		}
+	}
 }
 
