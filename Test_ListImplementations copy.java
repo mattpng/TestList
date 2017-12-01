@@ -99,8 +99,12 @@ public class Test_ListImplementations {
 
 		// TODO: name and write additional tests to run on each list.
 //		test01_List_Constructor(className, list);
-		test01_List_Add_OneItem(className,list);
+		test01_add_One_Item(className,list);
 		test02_add_At_Negative_Pos(className, list);
+		test03_add_At_Positive_Index_Out_Of_Bound(className, list);
+		test04_add_A_Null_Item_At_A_Pos(className, list);
+		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
+		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
 	}
 	
@@ -130,7 +134,7 @@ public class Test_ListImplementations {
 				failMsg(name+"_size() for "+ta_name,""+expectedSize,""+actualSize);
 			}
 			
-//			System.out.println(name + " for " + ta_name + " passed");
+			System.out.println(name + " for " + ta_name + " passed");
 	
 		}catch(Exception e){
 			failMsg(name+ " add(\"1\") for "+ ta_name, "No exception", ""+e);
@@ -164,7 +168,7 @@ public class Test_ListImplementations {
 			}
 			
 			catch (IndexOutOfBoundsException e) {
-				System.out.println("test passed");
+				System.out.println(name + " for " + ta_name + " passed");
 			}
 			
 			catch (Exception e) {
@@ -186,7 +190,7 @@ public class Test_ListImplementations {
 		}
 		
 		catch (IndexOutOfBoundsException e) {
-			System.out.println("test passed");
+			System.out.println(name + " for " + ta_name + " passed");
 		}
 		
 		catch (Exception e) {
@@ -206,7 +210,7 @@ public class Test_ListImplementations {
 		}
 		
 		catch (IllegalArgumentException e) {
-			System.out.println("test passed");
+			System.out.println(name + " for " + ta_name + " passed");
 		}
 		
 		catch (Exception e) {
@@ -229,7 +233,7 @@ public class Test_ListImplementations {
 			}
 			
 			else {
-				System.out.println("test passed");
+				System.out.println(name + " for " + ta_name + " passed");
 			}
 		}
 		
@@ -258,7 +262,7 @@ public class Test_ListImplementations {
 			}
 			
 			else {
-				System.out.println("test passed");
+				System.out.println(name + " for " + ta_name + " passed");
 			}
 		}
 		
@@ -280,4 +284,3 @@ public class Test_ListImplementations {
 	 }
 	
 }
-
