@@ -101,7 +101,7 @@ public class Test_ListImplementations {
 //		test01_List_Constructor(className, list);
 		test01_List_Add_OneItem(className,list);
 		test02_add_At_Negative_Pos(className, list);
-		
+		test07_add_Multiple_Items(className, list);
 	}
 	
 
@@ -115,22 +115,25 @@ public class Test_ListImplementations {
 	 * A sample test method.
 	 * @param list
 	 */
-	private static void test01_List_Add_OneItem(String className, ListADT<String> list) {
+	private static void test01_add_One_Item(String className, ListADT<String> list) {
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
+		String ta_name = list.getClass().getName(); // unnecessary line I believe
+		list = constructListOfString(className);
 		
 		try{
 			list.add("1");
 			
-			int expected = 1;
-			int actual = list.size();
+			int expectedSize = 1;
+			int actualSize = list.size();
 			
-			if (actual != expected){
-				failMsg(name+" for "+ta_name,""+expected,""+actual);
+			if (actualSize != expectedSize){
+				failMsg(name+"_size() for "+ta_name,""+expectedSize,""+actualSize);
 			}
+			
+//			System.out.println(name + " for " + ta_name + " passed");
 	
 		}catch(Exception e){
-			System.out.println("Failure " + e);
+			failMsg(name+ " add(\"1\") for "+ ta_name, "No exception", ""+e);
 			
 		}
 		
@@ -139,10 +142,11 @@ public class Test_ListImplementations {
 			String expItem = "1";
 			
 			if(getItem != expItem){
-				failMsg(name+" for "+ta_name, "1", ""+getItem);
+				failMsg(name + " for " + ta_name, "1", "" + getItem);
 			}
-		}catch (Exception e){
-			System.out.println("Failure " + e);
+		}catch(Exception e){
+			failMsg(name+ "_get(0)", "1", ""+e);
+			return;
 		}
 		
 	
@@ -262,5 +266,18 @@ public class Test_ListImplementations {
 			failMsg(name+" for "+ta_name,expItem, ""+e);
 		}
 	}
+	
+	 private static void test07_add_Multiple_Items(String className, ListADT<String> list){
+		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		 String ta_name = list.getClass().getName();
+		 
+		 int numItems = 50; //
+		 for (int i=0; i<numItems;i++){
+			 list.add(""+i);
+		 }
+		 
+		 
+	 }
+	
 }
 
