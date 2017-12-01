@@ -100,10 +100,16 @@ public class Test_ListImplementations {
 		// TODO: name and write additional tests to run on each list.
 //		test01_List_Constructor(className, list);
 		test01_List_Add_OneItem(className,list);
+		test02_add_At_Negative_Pos(className, list);
 		
 	}
 	
-	
+
+	 private static void failMsg(String msg, String expected, String actual) {
+	        System.out.println("FAILED " + msg);
+	        System.out.println("    expected: " + expected);
+	        System.out.println("      actual: " + actual);
+	    }
 
 	/** 
 	 * A sample test method.
@@ -122,29 +128,44 @@ public class Test_ListImplementations {
 			if (actual != expected){
 				failMsg(name+" for "+ta_name,""+expected,""+actual);
 			}
+	
+		}catch(Exception e){
+			System.out.println("Failure " + e);
 			
+		}
+		
+		try{
 			String getItem = list.get(0);
 			String expItem = "1";
 			
 			if(getItem != expItem){
-				failMsg(name+" for "+ta_name, ""+expItem, ""+getItem);
+				failMsg(name+" for "+ta_name, "1", ""+getItem);
+			}
+		}catch (Exception e){
+			System.out.println("Failure " + e);
+		}
+		
+	
+	}
+	 
+	 private static void test02_add_At_Negative_Pos(String className, ListADT<String> list) {
+			list = constructListOfString(className);
+			String name = new Object(){}.getClass().getEnclosingMethod().getName();
+			String ta_name = list.getClass().getName();
+			
+			
+			try {
+				list.add(-1,"a");
+				failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
 			}
 			
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("test passed");
+			}
 			
-		}catch(Exception e){
-			System.out.println("FAILED	" + e);
-			
+			catch (Exception e) {
+				failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+			}
 		}
-	
-		
-		
-	}
-	
-	 private static void failMsg(String msg, String expected, String actual) {
-	        System.out.println("FAILED " + msg);
-	        System.out.println("    expected: " + expected);
-	        System.out.println("      actual: " + actual);
-	    }
-
-
 }
+
