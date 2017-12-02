@@ -106,6 +106,8 @@ public class Test_ListImplementations {
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
 		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
+		test08_List_Contains(className,list);
+		
 	}
 	
 
@@ -282,5 +284,31 @@ public class Test_ListImplementations {
 		 
 		 
 	 }
+	
+	 /**
+     * creates empty List and adds multiple items
+     * and checks that size is one
+     */
+    public static void test08_List_Contains(String className, ListADT<String> list) {
+        String name = className;
+        int numItems = 101; // number of items to add and check size
+
+        try{
+        // should be big enough to force expand
+        for ( int i=0; i < numItems; i++ ) {
+            String s = "item_"+i;
+            list.add(s);
+            boolean expected = true;
+            boolean actual = list.contains(s);
+            if ( expected != actual ) {
+                failMsg(name+"ContainsItem_"+s,""+expected,""+actual);
+            }
+        }
+        }catch(Exception e)
+        {
+        	System.out.println("Exception found as:" + e);
+        }
+
+    }
 	
 }
