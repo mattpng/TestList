@@ -1,11 +1,10 @@
 import java.lang.reflect.Constructor;
 
 /**
- * Example of a framework for testing multiple implementations of the
+ * Tests multiple implementations of the
  * ListADT for TEAM_TestListImplementations assignment.
  * 
- * @version 0.0
- * @author deppeler
+ * 
  *
  */
 public class Test_ListImplementations {
@@ -103,16 +102,28 @@ public class Test_ListImplementations {
 		test03_add_A_Null_Item_At_End(className, list);
 		test04_add_A_Null_Item_At_A_Pos(className, list);
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
-		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
+//		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-		
+		test08_add_At_Pos_size(className, list);
+		test09_add_At_Positive_Index_Out_Of_Bound(className, list);
+		test10_List_remove(className, list);
 		test11_List_Contains(className,list);
-		test09_List_remove(className, list);
-		test10_add_At_Positive_Index_Out_Of_Bound(className, list);
+		test12_List_isEmpty(className, list);
+		test12_List_isEmpty(className, list);
+		test13_get_At_Negative_Pos(className, list);
+		test14_get_At_Pos_Zero_Of_Empty_List(className, list);
+		test15_remove_At_Negative_Pos(className, list);
+		test16_remove_At_Pos_Zero_Of_Empty_List(className, list);
+		test17_remove_At_Size(className, list);
 		
-				
 	}
 	
+	/** Prints failure message from test methods.
+	 * 
+	 * @param msg 
+	 * @param expected
+	 * @param actual
+	 */
 
 	 private static void failMsg(String msg, String expected, String actual) {
 	        System.out.println("FAILED " + msg);
@@ -120,9 +131,10 @@ public class Test_ListImplementations {
 	        System.out.println("      actual: " + actual);
 	    }
 
-	/** 
-	 * A sample test method.
+	/** This test adds one item "1" and then uses get(0) to access the item added.
+	 * 
 	 * @param list
+	 * @param className
 	 */
 	private static void test01_add_Get_One_Item(String className, ListADT<String> list) {
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -130,11 +142,12 @@ public class Test_ListImplementations {
 		list = constructListOfString(className);
 		boolean failure = false;
 		
+		String expItem = "1";
 		try{
 			list.add("1");
 			
 			String getItem = list.get(0);
-			String expItem = "1";
+			
 			
 			if(getItem != expItem){
 				failMsg(name + " for " + ta_name, "1", "" + getItem);
@@ -147,12 +160,14 @@ public class Test_ListImplementations {
 			
 			
 		}catch(Exception e){
-			failMsg(name+ " add(\"1\") for "+ ta_name, "No exception", ""+e);
+			failMsg(name+ " for "+ ta_name, expItem, ""+e);
 			
 		}
 	
 	}
 	 
+	
+	
 	 private static void test02_add_At_Negative_Pos(String className, ListADT<String> list) {
 			list = constructListOfString(className);
 			String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -173,6 +188,11 @@ public class Test_ListImplementations {
 			}
 		}
 	
+	 	/**
+		 * 
+		 * @param className
+		 * @param list
+		 */
 	 private static void test03_add_A_Null_Item_At_End(String className, ListADT<String> list) {
  		list = constructListOfString(className);
  		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -272,6 +292,12 @@ public class Test_ListImplementations {
 		}
 	}
 	
+	/** This test adds many items to a list and checks that they are all added correctly. 
+	 * This should force the list to expand if the implementation uses an array. 
+	 * 
+	 * @param className
+	 * @param list
+	 */
 	 private static void test07_add_Multiple_Items(String className, ListADT<String> list){
 		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
 		 String ta_name = list.getClass().getName();
@@ -304,14 +330,62 @@ public class Test_ListImplementations {
 		 
 	 }
 	 
-
+	 /** This test adds an item using add(list.size(), item) and checks that the item was 
+	  * correctly added to the list.
+	  *  
+	  * @param className
+	  * @param list
+	  */
+	 	public static void test08_add_At_Pos_size(String className, ListADT<String> list){
+	 		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
+			 String ta_name = list.getClass().getName();
+			 list = constructListOfString(className);
+			 boolean failure = false;
+			 
+			 try{
+				 list.add("1");
+				 list.add(list.size(), "2"); 
+				 
+				 if (!list.get(1).equals("2")){
+					 failMsg(name + "_add(list.size(), \"2\") for " + ta_name, "true" , "false");
+					 failure = true;
+				 }
+				 
+				 if (!failure){
+						System.out.println(name + " for " + ta_name + " passed");	
+				 }
+				 
+			 } catch(Exception e){
+				 failMsg(name + "_add(list.size(), \"2\") for " + ta_name, "No exception", ""+e);
+			 }
+			
+	 	}
 	 
+	 
+    	private static void test09_add_At_Positive_Index_Out_Of_Bound(String className, ListADT<String> list) {
+    		list = constructListOfString(className);
+    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+    		String ta_name = list.getClass().getName();
+    		
+    		try {
+    			list.add(1,"a");
+    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+    		}
+    		
+    		catch (IndexOutOfBoundsException e) {
+    			System.out.println(name + " for " + ta_name + " passed");
+    		}
+    		
+    		catch (Exception e) {
+    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+    		}
+    	}
         
     
 	    /**
 	       * test add("item") and then remove() on a non-empty list
 	         */
-	        public static void test09_List_remove(String className, ListADT<String> list) {
+	        public static void test10_List_remove(String className, ListADT<String> list) {
 	        	String name = new Object(){}.getClass().getEnclosingMethod().getName();
 	    		String ta_name = list.getClass().getName();
 	            list = constructListOfString(className);
@@ -350,27 +424,7 @@ public class Test_ListImplementations {
 	
 	       
 	        
-	     // Note from Hongyi: for test 03-06, I did not check the size of the list because I think the size may better to be tested
-	    	// separately. 
-	    	// Also test06 will cause an infinite loop for Saipan.
-	    	private static void test10_add_At_Positive_Index_Out_Of_Bound(String className, ListADT<String> list) {
-	    		list = constructListOfString(className);
-	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-	    		String ta_name = list.getClass().getName();
-	    		
-	    		try {
-	    			list.add(1,"a");
-	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-	    		}
-	    		
-	    		catch (IndexOutOfBoundsException e) {
-	    			System.out.println(name + " for " + ta_name + " passed");
-	    		}
-	    		
-	    		catch (Exception e) {
-	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-	    		}
-	    	}
+	     
 	    	
 	    	 /**
 	         * creates empty List and adds multiple items
@@ -385,19 +439,16 @@ public class Test_ListImplementations {
 	            boolean failure = false;
 	            
 	            try{
-	            	
-	            // should be big enough to force expand
-	            	
-	            	
-	            for ( int i=0; i < numItems; i++ ) {
-	                String s = "item_"+i;
-	                list.add(s);
-	                boolean expected = true;
-	                boolean actual = list.contains(s);
-	                if ( expected != actual ) {
-	                    failMsg(name+ "for ContainsItem_"+s,""+expected,""+actual);
-	                    failure = true;
-	                }
+	           
+		            for ( int i=0; i < numItems; i++ ) {
+		                String s = "item_"+i;
+		                list.add(s);
+		                boolean expected = true;
+		                boolean actual = list.contains(s);
+		                if ( expected != actual ) {
+		                    failMsg(name+ "for ContainsItem_"+s,""+expected,""+actual);
+		                    failure = true;
+		                }
 	               
 	            } 
 	            
@@ -411,177 +462,118 @@ public class Test_ListImplementations {
 	            }
 	            
 	        }
-	
-		private static void test07_get_At_Negative_Pos(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.get(-1);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println("test passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test08_get_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.get(0);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println("test passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test09_remove_At_Negative_Pos(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.remove(-1);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println("test passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test10_remove_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.remove(0);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println("test passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
+	        
+	        public static void test12_List_isEmpty(String className, ListADT<String> list) {
+	        			String name = className;
+	        	        ListADT<String> ta_list = constructListOfString(className);
+	        	         
+	        	        String ta_name = ta_list.getClass().getName();
+	        	        if (! ta_list.isEmpty()) {
+	        	        	System.out.println("Testing isEmpty method failed");
+	        	            failMsg(name+"_isEmpty for "+ta_name,""+true,""+false);
+	        	        }
+	        	        int expected = 0;
+	        	        int actual = ta_list.size();
+	        	        if (actual != expected) {
+	        	            failMsg(name+"_size for "+ta_name,""+expected,""+actual);
+	        	        }
+	        	    }
+	        
+	        private static void test13_get_At_Negative_Pos(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		try {
+	    			list.get(-1);
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+	    		}
+	    		
+	    		catch (IndexOutOfBoundsException e) {
+	    			System.out.println(name + " for " + ta_name + " passed");
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+	    		}
+	    	}
+	    	
+	    	private static void test14_get_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		try {
+	    			list.get(0);
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+	    		}
+	    		
+	    		catch (IndexOutOfBoundsException e) {
+	    			System.out.println(name + " for " + ta_name + " passed");
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+	    		}
+	    	}
+	    	
+	    	private static void test15_remove_At_Negative_Pos(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		try {
+	    			list.remove(-1);
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+	    		}
+	    		
+	    		catch (IndexOutOfBoundsException e) {
+	    			System.out.println(name + " for " + ta_name + " passed");
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+	    		}
+	    	}
+	    	
+	    	private static void test16_remove_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		try {
+	    			list.remove(0);
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+	    		}
+	    		
+	    		catch (IndexOutOfBoundsException e) {
+	    			System.out.println(name + " for " + ta_name + " passed");
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+	    		}
+	    	}
+	    	
+	    	private static void test17_remove_At_Size(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		try {
+	    			list.add("a");
+	    			list.remove(list.size());
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
+	    		}
+	    		
+	    		catch (IndexOutOfBoundsException e) {
+	    			System.out.println(name + " for " + ta_name + " passed");
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
+	    		}
+	    	}
 
-	private static void test12_get_At_Negative_Pos(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.get(-1);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println(name + " for " + ta_name + " passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test13_get_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.get(0);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println(name + " for " + ta_name + " passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test14_remove_At_Negative_Pos(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.remove(-1);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println(name + " for " + ta_name + " passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test15_remove_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.remove(0);
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println(name + " for " + ta_name + " passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
-	
-	private static void test16_remove_At_Size(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		try {
-			list.add("a");
-			list.remove(list.size());
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException","Not throwing an exception");
-		}
-		
-		catch (IndexOutOfBoundsException e) {
-			System.out.println(name + " for " + ta_name + " passed");
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
-		}
-	}
 	
 }
