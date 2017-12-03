@@ -103,9 +103,9 @@ public class Test_ListImplementations {
 		test03_add_A_Null_Item_At_End(className, list);
 		test04_add_A_Null_Item_At_A_Pos(className, list);
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
-//		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
+		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-//		test08_add_At_Pos_size(className, list);
+		test08_add_At_Pos_size(className, list);
 		test09_add_At_Positive_Index_Out_Of_Bound(className, list);
 		test10_remove_At_Front_Middle_Rear(className, list);
 		test11_List_Contains(className,list);
@@ -117,6 +117,7 @@ public class Test_ListImplementations {
 		test17_remove_At_Pos_Zero_Of_Empty_List(className, list);
 		test18_remove_At_Size(className, list);
 		test19_List_Iterator(className, list);
+		test20_get_Multiple_Items(className, list);
 		
 		
 	}
@@ -198,12 +199,12 @@ public class Test_ListImplementations {
 		}
 	
 	 /**
-	 * This method tests the case when we add an null item to the end. It should throw an
-	 * IllegalArgumentException.
-	 *
-	 * @param className
-	 * @param list
-	 */
+		 * This method tests the case when we add an null item to the end. It should throw an
+		 * IllegalArgumentException.
+		 *
+		 * @param className
+		 * @param list
+		 */
 	 private static void test03_add_A_Null_Item_At_End(String className, ListADT<String> list) {
  		list = constructListOfString(className);
  		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -227,13 +228,13 @@ public class Test_ListImplementations {
  	
  	}
 	
-	/**
-	 * This method tests the case when we add an null item to a specific position. It should throw an
-	 * IllegalArgumentException.
-	 *
-	 * @param className
-	 * @param list
-	 */
+	 	/**
+		 * This method tests the case when we add an null item to a specific position. It should throw an
+		 * IllegalArgumentException.
+		 *
+		 * @param className
+		 * @param list
+		 */
 	private static void test04_add_A_Null_Item_At_A_Pos(String className, ListADT<String> list) {
 		list = constructListOfString(className);
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -296,8 +297,7 @@ public class Test_ListImplementations {
 	 * @param list
 	 */
 	private static void test06_add_Items_At_Front_Rear_And_In_Between(String className, ListADT<String> list) {
-		// It seems that this method will cause an infinite loop for Sapan.
-		// So we will manually break out of that.
+
 		list = constructListOfString(className);
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
 		String ta_name = list.getClass().getName(); 
@@ -393,7 +393,11 @@ public class Test_ListImplementations {
 			
 	 	}
 	 
-	 
+	 	/** This test adds at a position greater than size(), which should throw an IndexOutOfBoundsException.
+	 	 * 
+	 	 * @param className
+	 	 * @param list
+	 	 */
     	private static void test09_add_At_Positive_Index_Out_Of_Bound(String className, ListADT<String> list) {
     		list = constructListOfString(className);
     		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -414,8 +418,8 @@ public class Test_ListImplementations {
     	}
   
     
-	    /**
-	       * test add("item") and then remove() on a non-empty list
+	    	/**	This test adds multiple items to a list and then removes from the front, middle and rear.
+	    	 *  The items removed as well as the items remaining are checked.
 	         */
 	        public static void test10_remove_At_Front_Middle_Rear(String className, ListADT<String> list) {
 	        	String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -473,7 +477,7 @@ public class Test_ListImplementations {
 	           }
 	        }
 	
-	    	 /**
+	    	 /** 
 	         * creates empty List and adds multiple items
 	         * and checks that size is one
 	         */
@@ -553,6 +557,12 @@ public class Test_ListImplementations {
 	            
 	        }
 	        
+	        /** This test adds an item to a list and checks that is is not empty afterwards.
+	         * 
+	         * @param className
+	         * @param list
+	         */
+	        
 	        public static void test13_List_isEmpty(String className, ListADT<String> list) {
 	        	String name = new Object(){}.getClass().getEnclosingMethod().getName();
 	    		String ta_name = list.getClass().getName();
@@ -564,7 +574,7 @@ public class Test_ListImplementations {
 	        	     boolean exp = false;
 	        	     boolean act = list.isEmpty();
 	        	     
-	        	     // Should be 1 after one item is added
+	        	     // Size should be 1 after one item is added
 	        	     if (exp != act) {
 	        	          failMsg(name+" isEmpty() after item added for "+ta_name,""+exp,""+act);
 	        	     } else {
@@ -577,6 +587,15 @@ public class Test_ListImplementations {
 	        	       
 	        	    }
 	        
+	        /** Test 14 checks errors when the list data is accessed at negative position. 
+	        * 
+	        * Since position should always be greater than or equal to zero,
+	        * exception will be thrown to capture any input that is negative value and will 
+	        * throw error.
+	        * 
+	        * @param list 
+	        * @param className
+	        */
 	        private static void test14_get_At_Negative_Pos(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -596,6 +615,13 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+	        /** Test 15 checks that the empty list have no items in the list and throws
+	         * IndexOutOfBoundsException correctly when it was accessed by get method
+	         * at position zero.
+	         * 
+	         * @param list  
+	         * @param className
+	        */
 	    	private static void test15_get_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -615,6 +641,12 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+	    	/** Test16 checks that IndexOutOfBoundsException is correctly thrown
+	         * when it was accessed by remove method at negative position in an empty list.
+	         * 
+	         * @param list
+	         * @param className
+	         */
 	    	private static void test16_remove_At_Negative_Pos(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -634,6 +666,12 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+	    	/** Test 17 checks that IndexOutOfBoundsException is correctly thrown
+	         * when it was accessed by remove method at position zero in an empty list.
+	         * 
+	         * @param list 
+	         * @param className
+	         */
 	    	private static void test17_remove_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -653,6 +691,13 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+	    	
+	    	/** Test 18 checks that when trying to remove an item at list.size()
+	         * correctly throws indexOutOfBoundsException 
+	         * 
+	         * @param list
+	         * @param className
+	         */
 	    	private static void test18_remove_At_Size(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -731,43 +776,41 @@ public class Test_ListImplementations {
 	    		}
 
 	    	    }
-	
-		    
-	/** 
-	 * This method first adds multiple items to a list in sequence, then it gets every item in sequence. The
-	 * string sequence got from the list should correspond to the sequence of string added.
-	 * 
-	 * @param className
-	 * @param list
-	 */
-	private static void test20_get_Multiple_Items(String className, ListADT<String> list) {
-		list = constructListOfString(className);
-		String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		
-		String expItem = "123456";
-		try {
-			list.add("1");
-			list.add("2");
-			list.add("3");
-			list.add("4");
-			list.add("5");
-			list.add("6");
-			String getItem = list.get(0) + list.get(1) + list.get(2) + list.get(3) + list.get(4) + list.get(5);
-			
-			if (!getItem.equals(expItem)) {
-				failMsg(name+" for "+ta_name,expItem, ""+getItem);
-			}
-			
-			else {
-				System.out.println("test passed");
-			}
-		}
-		
-		catch (Exception e) {
-			failMsg(name+" for "+ta_name,expItem, ""+e);
-		}
-	}
-	
-	
+	    	
+	    	/** 
+	    	 * This method first adds multiple items to a list in sequence, then it gets every item in sequence. The
+	    	 * string sequence got from the list should correspond to the sequence of string added.
+	    	 * 
+	    	 * @param className
+	    	 * @param list
+	    	 */
+	    	private static void test20_get_Multiple_Items(String className, ListADT<String> list) {
+	    		list = constructListOfString(className);
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		
+	    		String expItem = "123456";
+	    		try {
+	    			list.add("1");
+	    			list.add("2");
+	    			list.add("3");
+	    			list.add("4");
+	    			list.add("5");
+	    			list.add("6");
+	    			String getItem = list.get(0) + list.get(1) + list.get(2) + list.get(3) + list.get(4) + list.get(5);
+	    			
+	    			if (!getItem.equals(expItem)) {
+	    				failMsg(name+" for "+ta_name,expItem, ""+getItem);
+	    			}
+	    			
+	    			else {
+	    				System.out.println("test passed");
+	    			}
+	    		}
+	    		
+	    		catch (Exception e) {
+	    			failMsg(name+" for "+ta_name,expItem, ""+e);
+	    		}
+	    	}
+
 }
