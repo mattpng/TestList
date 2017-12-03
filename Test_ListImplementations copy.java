@@ -125,6 +125,7 @@ public class Test_ListImplementations {
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
 		String ta_name = list.getClass().getName(); 
 		list = constructListOfString(className);
+		boolean failure = false;
 		
 		try{
 			list.add("1");
@@ -132,17 +133,23 @@ public class Test_ListImplementations {
 			int expectedSize = 1;
 			int actualSize = list.size();
 			
+			// Size check
 			if (actualSize != expectedSize){
 				failMsg(name+"_size() for "+ta_name,""+expectedSize,""+actualSize);
+				failure = true;
 			}
 			
-			System.out.println(name + " for " + ta_name + " passed");
-	
+			if (!failure){
+				System.out.println(name + " for " + ta_name + " passed");	
+			}
+			
+			
 		}catch(Exception e){
 			failMsg(name+ " add(\"1\") for "+ ta_name, "No exception", ""+e);
 			
 		}
 		
+		// Check only item in list
 		try{
 			String getItem = list.get(0);
 			String expItem = "1";
@@ -205,6 +212,8 @@ public class Test_ListImplementations {
 		String name = new Object(){}.getClass().getEnclosingMethod().getName();
 		String ta_name = list.getClass().getName();
 		
+		
+		// should we include list.add(null) general check?
 		try {
 			String item = null;
 			list.add(0,item);
@@ -277,12 +286,30 @@ public class Test_ListImplementations {
 		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
 		 String ta_name = list.getClass().getName();
 		 
+		 boolean failure = false;
+		 
+		 list = constructListOfString(className);
 		 int numItems = 101; //
-		 for (int i=0; i<numItems;i++){
-			 list.add(""+i);
+		 int i=0;
+		 try{
+			 
+			 for (i=0; i<=numItems;i++){
+				 list.add(""+i); 
+				 
+				 if (!list.get(i).equals(""+i)){
+					 failMsg(name + "for list.get(" + i + ").equals(\"\"+" + i  + ") for " + ta_name, "true", "false");
+					 failure = true;
+				 }
+		 
+			 } 
+			 
+			 if (!failure){
+					System.out.println(name + " for " + ta_name + " passed");	
+			 }
+			 
+		 } catch (Exception e){
+			failMsg(name + "_add("+ i + ") for " + ta_name, "No exception", ""+e);
 		 }
-		 
-		 
 		 
 		 
 	 }
@@ -293,11 +320,18 @@ public class Test_ListImplementations {
      * and checks that size is one
      */
     public static void test08_List_Contains(String className, ListADT<String> list) {
-        String name = className;
+    	String name = new Object(){}.getClass().getEnclosingMethod().getName();
+		String ta_name = list.getClass().getName();
+		list = constructListOfString(className);
         int numItems = 101; // number of items to add and check size
-
+        
+        boolean failure = false;
+        
         try{
+        	
         // should be big enough to force expand
+        	
+        	
         for ( int i=0; i < numItems; i++ ) {
             String s = "item_"+i;
             list.add(s);
@@ -305,21 +339,32 @@ public class Test_ListImplementations {
             boolean actual = list.contains(s);
             if ( expected != actual ) {
                 failMsg(name+ "for ContainsItem_"+s,""+expected,""+actual);
+                failure = true;
             }
+           
+        } 
+        
+        if (!failure){
+			System.out.println(name + " for " + ta_name + " passed");	
         }
-        }catch(Exception e)
+        
+        } catch(Exception e)
         {
-        	System.out.println("Exception found as:" + e);
+        	failMsg(name+ "for " + ta_name, "No exception", ""+e);
         }
-
+        
     }
+        
     
 	    /**
 	       * test add("item") and then remove() on a non-empty list
 	         */
 	        public static void test09_List_remove(String className, ListADT<String> list) {
-	            String name = className;
-	    
+	        	String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	            list = constructListOfString(className);
+	            
+	            boolean failure = false;
 	            int initialSize = list.size();
 	            try{
 		            // add "item", then "remove"
@@ -329,6 +374,7 @@ public class Test_ListImplementations {
 		            if (!expected.equals(actual)) {
 		            	System.out.println("Testing remove method failed1");
 		                failMsg(name,""+expected,""+actual);
+		                failure = true;
 		            }
 		            // check that size is back to 0
 		            expected = ""+initialSize;
@@ -336,10 +382,20 @@ public class Test_ListImplementations {
 		            if (!expected.equals(actual)) {
 		            	System.out.println("Testing remove method failed2");
 		                failMsg(name+" size()",""+expected,""+actual);
+		                failure = true;
+		    
 		            }
+		            
+		            if (!failure){
+						System.out.println(name + " for " + ta_name + " passed");	
+		            }
+		            
 	            }catch(Exception e)
 	            {
-	            	System.out.println("Exception found as: " + e);
+	            	failMsg(name + " for " + ta_name, "No exception", ""+e);
 	           }
-	        }	
+	        }
+	
+
+	
 }
