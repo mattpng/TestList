@@ -1,11 +1,10 @@
 import java.lang.reflect.Constructor;
 
 /**
- * Example of a framework for testing multiple implementations of the
+ * Tests multiple implementations of the
  * ListADT for TEAM_TestListImplementations assignment.
  * 
- * @version 0.0
- * @author deppeler
+ * 
  *
  */
 public class Test_ListImplementations {
@@ -103,12 +102,11 @@ public class Test_ListImplementations {
 		test03_add_A_Null_Item_At_End(className, list);
 		test04_add_A_Null_Item_At_A_Pos(className, list);
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
-		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
+//		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-		test08_add_At_Pos_size(className, list)
+//		test08_add_At_Pos_size(className, list);
 		test09_add_At_Positive_Index_Out_Of_Bound(className, list);
 		test10_List_remove(className, list);
-
 		test11_List_Contains(className,list);
 		
 		
@@ -116,6 +114,12 @@ public class Test_ListImplementations {
 				
 	}
 	
+	/** Prints failure message from test methods.
+	 * 
+	 * @param msg 
+	 * @param expected
+	 * @param actual
+	 */
 
 	 private static void failMsg(String msg, String expected, String actual) {
 	        System.out.println("FAILED " + msg);
