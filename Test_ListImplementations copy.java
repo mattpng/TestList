@@ -105,7 +105,8 @@ public class Test_ListImplementations {
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
 		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-		test08_List_Contains(className,list);
+		
+		test11_List_Contains(className,list);
 		test09_List_remove(className, list);
 		test10_add_At_Positive_Index_Out_Of_Bound(className, list);
 		
@@ -252,9 +253,9 @@ public class Test_ListImplementations {
 		String expItem = "2314";
 		try {
 			list.add(0,"1");
-			list.add(0,"2");
-			list.add(1,"3");
-			list.add(3,"4");
+			list.add(0,"2"); // add to front
+			list.add(1,"3"); // add in between
+			list.add(3,"4"); // add to rear
 			String getItem = "" + list.get(0) + list.get(1) + list.get(2) + list.get(3);
 			
 			if (!getItem.equals(expItem)) {
@@ -304,45 +305,7 @@ public class Test_ListImplementations {
 	 }
 	 
 
-	 /**
-     * creates empty List and adds multiple items
-     * and checks that size is one
-     */
-    public static void test08_List_Contains(String className, ListADT<String> list) {
-    	String name = new Object(){}.getClass().getEnclosingMethod().getName();
-		String ta_name = list.getClass().getName();
-		list = constructListOfString(className);
-        int numItems = 101; // number of items to add and check size
-        
-        boolean failure = false;
-        
-        try{
-        	
-        // should be big enough to force expand
-        	
-        	
-        for ( int i=0; i < numItems; i++ ) {
-            String s = "item_"+i;
-            list.add(s);
-            boolean expected = true;
-            boolean actual = list.contains(s);
-            if ( expected != actual ) {
-                failMsg(name+ "for ContainsItem_"+s,""+expected,""+actual);
-                failure = true;
-            }
-           
-        } 
-        
-        if (!failure){
-			System.out.println(name + " for " + ta_name + " passed");	
-        }
-        
-        } catch(Exception e)
-        {
-        	failMsg(name+ "for " + ta_name, "No exception", ""+e);
-        }
-        
-    }
+	 
         
     
 	    /**
@@ -408,6 +371,46 @@ public class Test_ListImplementations {
 	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
 	    		}
 	    	}
+	    	
+	    	 /**
+	         * creates empty List and adds multiple items
+	         * and checks that size is one
+	         */
+	        public static void test11_List_Contains(String className, ListADT<String> list) {
+	        	String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
+	    		list = constructListOfString(className);
+	            int numItems = 101; // number of items to add and check size
+	            
+	            boolean failure = false;
+	            
+	            try{
+	            	
+	            // should be big enough to force expand
+	            	
+	            	
+	            for ( int i=0; i < numItems; i++ ) {
+	                String s = "item_"+i;
+	                list.add(s);
+	                boolean expected = true;
+	                boolean actual = list.contains(s);
+	                if ( expected != actual ) {
+	                    failMsg(name+ "for ContainsItem_"+s,""+expected,""+actual);
+	                    failure = true;
+	                }
+	               
+	            } 
+	            
+	            if (!failure){
+	    			System.out.println(name + " for " + ta_name + " passed");	
+	            }
+	            
+	            } catch(Exception e)
+	            {
+	            	failMsg(name+ "for " + ta_name, "No exception", ""+e);
+	            }
+	            
+	        }
 
 	
 }
