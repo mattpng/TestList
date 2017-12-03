@@ -547,7 +547,18 @@ public class Test_ListImplementations {
 	        	}
 	        	       
 	        	    }
-	        
+	        /* Test 14 checks errors when the list data is accessed at negative position
+	         * 
+	         * Since pos should be greater than or equal to zero,
+	         * 
+	         * exception will be thrown to capture any input that is negative value and
+	         * 
+	         * correctly printing errors
+	         * 
+	         * @param list
+	         *  
+	         * @param className
+	         */
 	        private static void test14_get_At_Negative_Pos(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -567,6 +578,16 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+		 /* Test 15 checks that the empty list have no items in the list and throws
+	         * 
+	         * IndexOutOfBoundsException correctly when it was accessed by get method
+	         * 
+	         * at position zero 
+	         * 
+	         * @param list
+	         *  
+	         * @param className
+	         */
 	    	private static void test15_get_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -586,6 +607,14 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+		/* test16 checks that IndexOutOfBoundsException is correctly thrown
+	         * 
+	         * when it was accessed by remove method at negative position in an empty list
+	         * 
+	         * @param list
+	         *  
+	         * @param className
+	         */
 	    	private static void test16_remove_At_Negative_Pos(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -605,6 +634,15 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+		/* test 17 checks that IndexOutOfBoundsException is correctly thrown
+	         * 
+	         * when it was accessed by remove method at position zero in an empty list
+	         * 
+	         * @param list
+	         *  
+	         * @param className
+	         */
+
 	    	private static void test17_remove_At_Pos_Zero_Of_Empty_List(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -624,6 +662,14 @@ public class Test_ListImplementations {
 	    		}
 	    	}
 	    	
+		/* test 18 checks that when trying to remove an item at list.size()
+	         * 
+	         * correctly throws indexOutOfBoundsException 
+	         * 
+	         * @param list
+	         *  
+	         * @param className
+	         */
 	    	private static void test18_remove_At_Size(String className, ListADT<String> list) {
 	    		list = constructListOfString(className);
 	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
