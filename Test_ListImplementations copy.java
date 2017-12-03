@@ -611,41 +611,63 @@ public class Test_ListImplementations {
 	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
 	    		}
 	    	}
- private static void test18__List_Iterator(String className, ListADT<String> list) {
-	    		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
-	    		 String ta_name = list.getClass().getName();
-	    		 int numItems = 20;
-	    		 Object obj1 = null;
-	    		 Object obj2 = null;
-	    		 int pos = 0;
-	    		 list = constructListOfString(className);
-	    		 Iterator<String> itr = list.iterator();
-	    		 try {
-	    			 for(int i = 0; i < numItems; i++) {
-	    				 list.add(String.valueOf(i));
-	    			 }
-	    			 if(null == itr) {
-	    				 failMsg(name+"_no_iterator", "valid iterator", ""+itr);
-	    			 }
-	    			 while(itr.hasNext()) {
-	    				 obj1 = itr.next();
-	    				 obj2 = list.get(pos);
-	    				 pos++;
-	    				// for(int j = 0; j < list.size(); j++) {
-	    					// System.out.println(list.get(j));
-	    				 //}
+	/**
+	     * confirms that Iterator method works and returns an
+	     * iterator that works
+	     */
+	    public static void test18_List_Iterator(String className, ListADT<String> list) {
+		String name = className;
+		list = constructListOfString(className);
+		java.util.List<String> alist = new java.util.ArrayList<String>();
+		int numItems = 10; // number of items to add and check size
+		// should be big enough to force expand
 
-	    				 if(!obj1.equals(obj2)) {
-	    					 failMsg(name+"_Iterator error : item in iterator is not correct","" + obj2,""+ obj1);
-	    				 }
+		try{
+			for ( int i=0; i < numItems; i++ ) {
+			    String s = "item_"+i;
+			    list.add(s);
+			    alist.add(s);
+			}
 
-	    			 }
-	    			 System.out.println(name + " for " + ta_name + " passed");
-	    		 }
+			Iterator<String> itr1 = list.iterator();
+			Iterator<String> itr2 = alist.iterator();
 
-	    		 catch(Exception e) {
-	    			 failMsg(className+" test12_List_Iterator ","NullPointerException","Throwing other exceptions");
-	    	 }
-	    	 }
+			if (null==itr1)
+			    failMsg(name+"_no_iterator","valid iterator",""+itr1);
+
+			if (null==itr2)
+			    failMsg(name+"_no_iterator from java.util.ArrayList","valid iterator",""+itr2);
+
+			while (itr1.hasNext() && itr2.hasNext()){
+			    Object obj1 = itr1.next();
+
+			    Object obj2 = itr2.next();
+
+			    boolean expected = true;
+			    boolean actual = obj1.equals(obj2);
+			    if ( expected != actual ) {
+				failMsg(name+"_iterator_error: item in iterator is not correct",""+expected,""+actual);
+				return;
+			    }
+
+			}
+
+			if ( itr1.hasNext() ) {
+			    failMsg(name+"_iterator_error: item in iterator but should not be", " ", itr1.next() );
+			    return;
+			}
+
+			if ( itr2.hasNext() ) {
+			    failMsg(name+"_iterator_error: item not in iterator but should be",itr2.next()," ");
+			    return;
+			}
+
+			System.out.println("Iterator method passed for " + className);
+		}catch(Exception e)
+		{
+			System.out.println("Exception found in testing iterator as: " + e);
+		}
+
+	    }
 	
 }
