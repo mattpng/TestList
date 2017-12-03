@@ -1,10 +1,11 @@
 import java.lang.reflect.Constructor;
 
 /**
- * Tests multiple implementations of the
+ * Example of a framework for testing multiple implementations of the
  * ListADT for TEAM_TestListImplementations assignment.
  * 
- * 
+ * @version 0.0
+ * @author deppeler
  *
  */
 public class Test_ListImplementations {
@@ -102,24 +103,21 @@ public class Test_ListImplementations {
 		test03_add_A_Null_Item_At_End(className, list);
 		test04_add_A_Null_Item_At_A_Pos(className, list);
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
-//		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
+		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-//		test08_add_At_Pos_size(className, list);
+		test08_add_At_Pos_size(className, list)
 		test09_add_At_Positive_Index_Out_Of_Bound(className, list);
 		test10_List_remove(className, list);
+
 		test11_List_Contains(className,list);
+		
+		test12_List_isEmpty(className, list);
 		
 		
 		
 				
 	}
 	
-	/** Prints failure message from test methods.
-	 * 
-	 * @param msg 
-	 * @param expected
-	 * @param actual
-	 */
 
 	 private static void failMsg(String msg, String expected, String actual) {
 	        System.out.println("FAILED " + msg);
@@ -437,6 +435,23 @@ public class Test_ListImplementations {
 	            }
 	            
 	        }
+	
+	public static void test12_List_isEmpty(String className, ListADT<String> list) {
+        String name = className;
+        ListADT<String> ta_list = constructListOfString(className);
+        
+        String ta_name = ta_list.getClass().getName();
+        if (! ta_list.isEmpty()) {
+        	System.out.println("Testing isEmpty method failed");
+            failMsg(name+"_isEmpty for "+ta_name,""+true,""+false);
+        }
+        int expected = 0;
+        int actual = ta_list.size();
+        if (actual != expected) {
+            failMsg(name+"_size for "+ta_name,""+expected,""+actual);
+        }
+    }
+
 
 	
 }
