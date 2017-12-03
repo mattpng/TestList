@@ -115,6 +115,7 @@ public class Test_ListImplementations {
 		test15_remove_At_Negative_Pos(className, list);
 		test16_remove_At_Pos_Zero_Of_Empty_List(className, list);
 		test17_remove_At_Size(className, list);
+		test18_List_Iterator(className, list);
 		
 	}
 	
@@ -528,7 +529,43 @@ public class Test_ListImplementations {
 	    		}
 	    		
 	    		catch (IndexOutOfBoundsException e) {
-	    			System.out.println(name + " for " + ta_name + " passed");
+
+				 private static void test12__List_Iterator(String className, ListADT<String> list) {
+	    		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		 String ta_name = list.getClass().getName();
+	    		 int numItems = 20;
+	    		 Object obj1 = null;
+	    		 Object obj2 = null;
+	    		 int pos = 0;
+	    		 list = constructListOfString(className);
+	    		 Iterator<String> itr = list.iterator();
+	    		 try {
+	    			 for(int i = 0; i < numItems; i++) {
+	    				 list.add(String.valueOf(i));
+	    			 }
+	    			 if(null == itr) {
+	    				 failMsg(name+"_no_iterator", "valid iterator", ""+itr);
+	    			 }
+	    			 while(itr.hasNext()) {
+	    				 obj1 = itr.next();
+	    				 obj2 = list.get(pos);
+	    				 pos++;
+	    				// for(int j = 0; j < list.size(); j++) {
+	    					// System.out.println(list.get(j));
+	    				 //}
+
+	    				 if(!obj1.equals(obj2)) {
+	    					 failMsg(name+"_Iterator error : item in iterator is not correct","" + obj2,""+ obj1);
+	    				 }
+
+	    			 }
+	    			 System.out.println(name + " for " + ta_name + " passed");
+	    		 }
+
+	    		 catch(Exception e) {
+	    			 failMsg(className+" test12_List_Iterator ","NullPointerException","Throwing other exceptions");
+	    	 }
+	    	 }System.out.println(name + " for " + ta_name + " passed");
 	    		}
 	    		
 	    		catch (Exception e) {
@@ -574,6 +611,41 @@ public class Test_ListImplementations {
 	    			failMsg(name+" for "+ta_name,"IndexOutOfBoundsException", ""+e);
 	    		}
 	    	}
+ private static void test18__List_Iterator(String className, ListADT<String> list) {
+	    		 String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		 String ta_name = list.getClass().getName();
+	    		 int numItems = 20;
+	    		 Object obj1 = null;
+	    		 Object obj2 = null;
+	    		 int pos = 0;
+	    		 list = constructListOfString(className);
+	    		 Iterator<String> itr = list.iterator();
+	    		 try {
+	    			 for(int i = 0; i < numItems; i++) {
+	    				 list.add(String.valueOf(i));
+	    			 }
+	    			 if(null == itr) {
+	    				 failMsg(name+"_no_iterator", "valid iterator", ""+itr);
+	    			 }
+	    			 while(itr.hasNext()) {
+	    				 obj1 = itr.next();
+	    				 obj2 = list.get(pos);
+	    				 pos++;
+	    				// for(int j = 0; j < list.size(); j++) {
+	    					// System.out.println(list.get(j));
+	    				 //}
 
+	    				 if(!obj1.equals(obj2)) {
+	    					 failMsg(name+"_Iterator error : item in iterator is not correct","" + obj2,""+ obj1);
+	    				 }
+
+	    			 }
+	    			 System.out.println(name + " for " + ta_name + " passed");
+	    		 }
+
+	    		 catch(Exception e) {
+	    			 failMsg(className+" test12_List_Iterator ","NullPointerException","Throwing other exceptions");
+	    	 }
+	    	 }
 	
 }
