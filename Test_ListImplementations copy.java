@@ -7,17 +7,13 @@
 // Authors: Hongyi Gu, Dong Gyu Kim, Matt P'ng, Zhenyu Zou
 // Author1: Hongyi Gu, hgu35@wisc.edu, hgu35, lec 002
 // Author2: Dong Gyu Kim, dkim355@wisc.edu, dkim355, lec 002
-// Author3: Matt P'ng, 
+// Author3: Matt P'ng, mpng@wisc.edu, mpng, lec 002
 // Author4: Zhenyu Zou, zzou24@wisc.edu, zzou24, lec 002
-// Author2: (name2,email2,netID2,lecture number2)
 //
 // ---------------- OTHER ASSISTANCE CREDITS 
-// Persons: Identify persons by name, relationship to you, and email. 
-// Describe in detail the the ideas and help they provided. 
+// Persons: NA
 // 
-// Online sources: avoid web searches to solve your problems, but if you do 
-// search, be sure to include Web URLs and description of 
-// of any information you find. 
+// Online sources: NA
 //////////////////////////// 80 columns wide //////////////////////////////////
 
 import java.lang.reflect.Constructor;
@@ -38,8 +34,8 @@ public class Test_ListImplementations {
 	 * @param args UNUSED
 	 */
 	public static void main(String[] args) {
-		String [] ta_list = { "Deb", "Mingi", "Yash", "Sonu", 
-						"Sapan", "Tianrun", "Roshan" };
+		String [] ta_list = { "Deb", "Mingi", "Yash", "Sonu",
+						 "Sapan", "Tianrun", "Roshan" };
 		for ( String ta_name : ta_list ) { 
 			String listClassName = "List_"+ta_name;
 			System.out.println("\n==================== TESTING "+listClassName );
@@ -125,9 +121,9 @@ public class Test_ListImplementations {
 		test03_add_A_Null_Item_At_End(className, list);
 		test04_add_A_Null_Item_At_A_Pos(className, list);
 		test05_add_Single_Item_To_Pos_Zero_Of_Empty_List(className, list);
-		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
+//		test06_add_Items_At_Front_Rear_And_In_Between(className, list);
 		test07_add_Multiple_Items(className, list);
-		test08_add_At_Pos_size(className, list);
+//		test08_add_At_Pos_size(className, list);
 		test09_add_At_Positive_Index_Out_Of_Bound(className, list);
 		test10_remove_At_Front_Middle_Rear(className, list);
 		test11_List_Contains(className,list);
@@ -745,7 +741,8 @@ public class Test_ListImplementations {
 		     */
 
 	    	private static void test19_List_Iterator(String className, ListADT<String> list) {
-	    		String name = className;
+	    		String name = new Object(){}.getClass().getEnclosingMethod().getName();
+	    		String ta_name = list.getClass().getName();
 	    		list = constructListOfString(className);
 	    		java.util.List<String> alist = new java.util.ArrayList<String>();
 	    		int numItems = 10; // number of items to add and check size
@@ -791,10 +788,11 @@ public class Test_ListImplementations {
 	    			    return;
 	    			}
 
-	    			System.out.println("Iterator method passed for " + className);
+	    			System.out.println(name + " for " + ta_name + " passed");
 	    		}catch(Exception e)
 	    		{
-	    			System.out.println("Exception found in testing iterator as: " + e);
+	    			failMsg(name + " for " + ta_name, "No exception expected", ""+e);
+
 	    		}
 
 	    	    }
@@ -826,7 +824,7 @@ public class Test_ListImplementations {
 	    			}
 	    			
 	    			else {
-	    				System.out.println("test passed");
+	    				System.out.println(name + " for " + ta_name + " passed");
 	    			}
 	    		}
 	    		
