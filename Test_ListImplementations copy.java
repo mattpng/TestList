@@ -1,3 +1,25 @@
+/////////////////////////////////////////////////////////////////////////////
+// Semester:         CS367 Fall 2017 
+// PROJECT:          TEAM ASSIGNMENT Test List implementation
+// FILE:             Test_ListImplementations.java
+//
+// TEAM:    TEAM 49
+// Authors: Hongyi Gu, Dong Gyu Kim, Matt P'ng, Zhenyu Zou
+// Author1: Hongyi Gu, hgu35@wisc.edu, hgu35, lec 002
+// Author2: Dong Gyu Kim, dkim355@wisc.edu, dkim355, lec 002
+// Author3: Matt P'ng, 
+// Author4: Zhenyu Zou, zzou24@wisc.edu, zzou24, lec 002
+// Author2: (name2,email2,netID2,lecture number2)
+//
+// ---------------- OTHER ASSISTANCE CREDITS 
+// Persons: Identify persons by name, relationship to you, and email. 
+// Describe in detail the the ideas and help they provided. 
+// 
+// Online sources: avoid web searches to solve your problems, but if you do 
+// search, be sure to include Web URLs and description of 
+// of any information you find. 
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 
